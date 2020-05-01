@@ -9,6 +9,8 @@ private:
 
 public:
     Array();
+    /// num: number of elements in the array
+    Array(int num, ...);
     /// insert element at the end of the array
     /// [O(N)]
     void append(int element);

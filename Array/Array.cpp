@@ -1,9 +1,24 @@
 #include <iostream>
+#include <stdarg.h>
 #include "Array.hpp"
 
 Array::Array()
 {
     N = 0;
+}
+
+Array::Array(int num, ...)
+{
+    int *newarr = new int[num];
+    va_list args;
+    va_start(args, num);
+    for (int i = 0; i < num; i++)
+    {
+        int value = va_arg(args, int);
+        newarr[i] = value;
+    }
+    arr = newarr;
+    N = num;
 }
 
 void Array::append(int element)
@@ -140,7 +155,10 @@ int main()
     std::cout << "\n"
               << numbers1.index(4);
     std::cout << "\n"
-              << numbers1.getElement(2);
+              << numbers1.getElement(2) << "\n";
+
+    Array numbers2(3, 1, 2, 3);
+    numbers2.print();
 
     return 0;
 }
