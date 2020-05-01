@@ -1,13 +1,13 @@
 #include <iostream>
 #include <stdarg.h>
-#include "Array.hpp"
+#include "RebelArray.hpp"
 
-Array::Array()
+RebelArray::RebelArray()
 {
     N = 0;
 }
 
-Array::Array(int num, ...)
+RebelArray::RebelArray(int num, ...)
 {
     int *newarr = new int[num];
     va_list args;
@@ -21,7 +21,7 @@ Array::Array(int num, ...)
     N = num;
 }
 
-void Array::append(int element)
+void RebelArray::append(int element)
 {
 
     int *newarr = new int[N + 1];
@@ -35,7 +35,7 @@ void Array::append(int element)
     N++;
 }
 
-void Array::insert(int element, int index)
+void RebelArray::insert(int element, int index)
 {
 
     int *newarr = new int[N + 1];
@@ -52,7 +52,7 @@ void Array::insert(int element, int index)
     N++;
 }
 
-void Array::pop(int index)
+void RebelArray::pop(int index)
 {
 
     int *newarr = new int[N - 1];
@@ -69,7 +69,7 @@ void Array::pop(int index)
     N--;
 }
 
-void Array::remove(int element)
+void RebelArray::remove(int element)
 {
     int *newarr = new int[N - 1];
     static int i;
@@ -92,7 +92,7 @@ void Array::remove(int element)
     N--;
 }
 
-int Array::count(int element)
+int RebelArray::count(int element)
 {
     static int element_count = 0;
     for (int i = 0; i < N; i++)
@@ -105,7 +105,7 @@ int Array::count(int element)
     return element_count;
 }
 
-int Array::index(int element)
+int RebelArray::index(int element)
 {
     int *newarr = new int[N - 1];
     for (int i = 0; i < N; i++)
@@ -118,12 +118,12 @@ int Array::index(int element)
     return -1;
 }
 
-int Array::getElement(int index)
+int RebelArray::getElement(int index)
 {
     return arr[index];
 }
 
-void Array::print()
+void RebelArray::print()
 {
     std::cout << "[";
 
@@ -144,7 +144,7 @@ void Array::print()
 
 int main()
 {
-    Array numbers1;
+    RebelArray numbers1;
     numbers1.append(1);
     numbers1.append(4);
     numbers1.append(5);
@@ -157,7 +157,7 @@ int main()
     std::cout << "\n"
               << numbers1.getElement(2) << "\n";
 
-    Array numbers2(3, 1, 2, 3);
+    RebelArray numbers2(3, 1, 2, 3);
     numbers2.print();
 
     return 0;

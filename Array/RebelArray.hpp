@@ -1,17 +1,14 @@
-#ifndef Bug_H
-#define Bug_H
-
-class Array
+class RebelArray
 {
 private:
     int *arr;
     int N;
 
 public:
-    Array();
-    /// num: number of elements in the array
-    Array(int num, ...);
-    /// insert element at the end of the array
+    RebelArray();
+    /// num: number of elements in the Rebelarray
+    RebelArray(int num, ...);
+    /// insert element at the end of the Rebelarray
     /// [O(N)]
     void append(int element);
     /// insert element at the given index
@@ -32,9 +29,7 @@ public:
     /// returns the element at the given index
     /// O(1)
     int getElement(int index);
-    /// prints the array to the console
+    /// prints the Rebelarray to the console
     /// O(N)
     void print();
 };
-
-#endif
