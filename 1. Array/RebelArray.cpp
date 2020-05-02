@@ -3,7 +3,7 @@
 #include "RebelArray.hpp"
 
 template <typename T>
-T_RebelArray<T>::T_RebelArray()
+RebelArray<T>::RebelArray()
 {
     T *newarr = new T[0];
     arr = newarr;
@@ -11,25 +11,25 @@ T_RebelArray<T>::T_RebelArray()
 }
 
 template <typename T>
-T T_RebelArray<T>::Lookup(int index)
+T RebelArray<T>::Lookup(int index)
 {
     return arr[index];
 }
 
 template <typename T>
-void T_RebelArray<T>::Prepend(T element)
+void RebelArray<T>::Prepend(T element)
 {
-    T_RebelArray::Insert(element, 0);
+    RebelArray::Insert(element, 0);
 }
 
 template <typename T>
-void T_RebelArray<T>::Append(T element)
+void RebelArray<T>::Append(T element)
 {
-    T_RebelArray::Insert(element, N);
+    RebelArray::Insert(element, N);
 }
 
 template <typename T>
-void T_RebelArray<T>::Insert(T element, int index)
+void RebelArray<T>::Insert(T element, int index)
 {
     T *newarr = new T[N + 1];
     for (int i = 0; i < index; i++)
@@ -46,7 +46,7 @@ void T_RebelArray<T>::Insert(T element, int index)
 }
 
 template <typename T>
-void T_RebelArray<T>::pop(int index)
+void RebelArray<T>::pop(int index)
 {
 
     T *newarr = new T[N - 1];
@@ -63,7 +63,7 @@ void T_RebelArray<T>::pop(int index)
 }
 
 template <typename T>
-void T_RebelArray<T>::Delete(T element)
+void RebelArray<T>::Delete(T element)
 {
     T *newarr = new T[N - 1];
     int i;
@@ -87,7 +87,7 @@ void T_RebelArray<T>::Delete(T element)
 }
 
 template <typename T>
-int T_RebelArray<T>::count(T element)
+int RebelArray<T>::count(T element)
 {
     int element_count = 0;
     for (int i = 0; i < N; i++)
@@ -101,7 +101,7 @@ int T_RebelArray<T>::count(T element)
 }
 
 template <typename T>
-int T_RebelArray<T>::index(T element)
+int RebelArray<T>::index(T element)
 {
     T *newarr = new T[N - 1];
     for (int i = 0; i < N; i++)
@@ -115,7 +115,7 @@ int T_RebelArray<T>::index(T element)
 }
 
 template <typename T>
-void T_RebelArray<T>::print()
+void RebelArray<T>::print()
 {
     std::cout << "[";
     if (N == 0)
@@ -139,7 +139,7 @@ void T_RebelArray<T>::print()
 
 int main()
 {
-    T_RebelArray<float> numbers1;
+    RebelArray<float> numbers1;
     numbers1.print();
     numbers1.Append(1.2);
     numbers1.Append(4.8);

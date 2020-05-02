@@ -3,50 +3,53 @@
 /// Prepend: O(1)
 /// Insert:  O(N)
 /// Delete:  O(N)
+
+template <typename T>
 class RebelNode
 {
 public:
-    int value;
+    T value;
     RebelNode *nextNode;
 
-    RebelNode(int value)
+    RebelNode(T value)
     {
         this->value = value;
         nextNode = nullptr;
     }
 };
 
+template <typename T>
 class RebelCircularSinglyLinkedList
 {
 private:
-    RebelNode *Head;
+    RebelNode<T> *Head;
 
 public:
     /// Creates an Empty RebelCircularSinglyLinkedList
     RebelCircularSinglyLinkedList();
 
     /// value: value of the head node
-    RebelCircularSinglyLinkedList(int value);
+    RebelCircularSinglyLinkedList(T value);
 
     /// returns the element at the given index
     /// O(N)
-    int Lookup(int index);
+    T Lookup(int index);
 
     /// Insert a node just after the head
     /// [O(1)]
-    void Append(int element);
+    void Append(T element);
 
     /// Insert Element before head, and make it the head
     /// [O(N)]
-    void Prepend(int element);
+    void Prepend(T element);
 
     /// insert element at the given index
     /// [O(N)]
-    void Insert(int element, int index);
+    void Insert(T element, int index);
 
     /// delete the first occurence of the given element
     /// [O(N)]
-    void Delete(int element);
+    void Delete(T element);
 
     /// delete element at the given index
     /// [O(N)]
@@ -54,11 +57,11 @@ public:
 
     /// returns the number of occurences of the given element
     /// [O(N)]
-    int count(int element);
+    int count(T element);
 
     /// returns the index of the first occurence of the given element
     /// [O(N)]
-    int index(int element);
+    int index(T element);
 
     /// prints the RebelCircularSinglyLinkedList to the console
     /// O(N)

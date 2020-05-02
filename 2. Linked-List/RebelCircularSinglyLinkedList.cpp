@@ -1,20 +1,23 @@
 #include <iostream>
 #include "RebelCircularSinglyLinkedList.hpp"
 
-RebelCircularSinglyLinkedList::RebelCircularSinglyLinkedList()
+template <typename T>
+RebelCircularSinglyLinkedList<T>::RebelCircularSinglyLinkedList()
 {
     this->Head = nullptr;
 }
 
-RebelCircularSinglyLinkedList::RebelCircularSinglyLinkedList(int value)
+template <typename T>
+RebelCircularSinglyLinkedList<T>::RebelCircularSinglyLinkedList(T value)
 {
-    this->Head = new RebelNode(value);
+    this->Head = new RebelNode<T>(value);
     this->Head->nextNode = this->Head;
 }
 
-int RebelCircularSinglyLinkedList::Lookup(int index)
+template <typename T>
+T RebelCircularSinglyLinkedList<T>::Lookup(int index)
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
     for (int i = 0; i < index; i++)
     {
         CurrentNode = CurrentNode->nextNode;
@@ -22,48 +25,51 @@ int RebelCircularSinglyLinkedList::Lookup(int index)
     return CurrentNode->value;
 }
 
-void RebelCircularSinglyLinkedList::Append(int value)
+template <typename T>
+void RebelCircularSinglyLinkedList<T>::Append(T value)
 {
 
     if (this->Head != nullptr)
     {
-        RebelNode *NewNode = new RebelNode(value);
+        RebelNode<T> *NewNode = new RebelNode<T>(value);
         NewNode->nextNode = this->Head->nextNode;
         this->Head->nextNode = NewNode;
     }
     else
     {
-        this->Head = new RebelNode(value);
+        this->Head = new RebelNode<T>(value);
         this->Head->nextNode = this->Head;
     }
 }
 
-void RebelCircularSinglyLinkedList::Prepend(int value)
+template <typename T>
+void RebelCircularSinglyLinkedList<T>::Prepend(T value)
 {
     if (this->Head != nullptr)
     {
-        RebelNode *CurrentNode = this->Head;
+        RebelNode<T> *CurrentNode = this->Head;
         while (CurrentNode->nextNode != Head)
         {
             CurrentNode = CurrentNode->nextNode;
         }
-        RebelNode *NewNode = new RebelNode(value);
+        RebelNode<T> *NewNode = new RebelNode<T>(value);
         CurrentNode->nextNode = NewNode;
         NewNode->nextNode = Head;
         this->Head = NewNode;
     }
     else
     {
-        this->Head = new RebelNode(value);
+        this->Head = new RebelNode<T>(value);
         this->Head->nextNode = this->Head;
     }
 }
 
-void RebelCircularSinglyLinkedList::Insert(int value, int index)
+template <typename T>
+void RebelCircularSinglyLinkedList<T>::Insert(T value, int index)
 {
 
-    RebelNode *NewNode = new RebelNode(value);
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *NewNode = new RebelNode<T>(value);
+    RebelNode<T> *CurrentNode = this->Head;
 
     for (int i = 0; i < index - 1; i++)
     {
@@ -74,10 +80,11 @@ void RebelCircularSinglyLinkedList::Insert(int value, int index)
     CurrentNode->nextNode = NewNode;
 }
 
-void RebelCircularSinglyLinkedList::Delete(int element)
+template <typename T>
+void RebelCircularSinglyLinkedList<T>::Delete(T element)
 {
-    RebelNode *CurrentNode = this->Head;
-    RebelNode *PreviousNode;
+    RebelNode<T> *CurrentNode = this->Head;
+    RebelNode<T> *PreviousNode;
 
     while (true)
     {
@@ -91,9 +98,10 @@ void RebelCircularSinglyLinkedList::Delete(int element)
     }
 }
 
-void RebelCircularSinglyLinkedList::pop(int index)
+template <typename T>
+void RebelCircularSinglyLinkedList<T>::pop(int index)
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
 
     for (int i = 0; i < index - 1; i++)
     {
@@ -103,9 +111,10 @@ void RebelCircularSinglyLinkedList::pop(int index)
     CurrentNode->nextNode = CurrentNode->nextNode->nextNode;
 }
 
-int RebelCircularSinglyLinkedList::count(int element)
+template <typename T>
+int RebelCircularSinglyLinkedList<T>::count(T element)
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
     int i = 0;
 
     while (CurrentNode->nextNode != Head)
@@ -124,9 +133,10 @@ int RebelCircularSinglyLinkedList::count(int element)
     return i;
 }
 
-int RebelCircularSinglyLinkedList::index(int element)
+template <typename T>
+int RebelCircularSinglyLinkedList<T>::index(T element)
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
     int i = 0;
 
     while (true)
@@ -140,9 +150,10 @@ int RebelCircularSinglyLinkedList::index(int element)
     }
 }
 
-void RebelCircularSinglyLinkedList::print()
+template <typename T>
+void RebelCircularSinglyLinkedList<T>::print()
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
     int count = 0;
 
     while (true)
@@ -161,7 +172,7 @@ void RebelCircularSinglyLinkedList::print()
 
 int main()
 {
-    RebelCircularSinglyLinkedList myList;
+    RebelCircularSinglyLinkedList<int> myList;
     myList.Append(1);
     myList.print();
 

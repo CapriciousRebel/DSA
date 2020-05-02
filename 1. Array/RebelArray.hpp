@@ -3,8 +3,9 @@
 /// Prepend: O(N)
 /// Insert:  O(N)
 /// Delete:  O(N)
+
 template <typename T>
-class T_RebelArray
+class RebelArray
 {
 private:
     T *arr;
@@ -12,10 +13,7 @@ private:
 
 public:
     /// Creates an empty Rebel Array
-    T_RebelArray();
-
-    /// num: number of elements in the Rebelarray
-    //T_RebelArray(int num, ...);
+    RebelArray();
 
     /// returns the element at the given index
     /// O(1)

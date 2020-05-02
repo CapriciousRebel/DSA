@@ -1,19 +1,22 @@
 #include <iostream>
 #include "RebelDoublyLinkedList.hpp"
 
-RebelDoublyLinkedList::RebelDoublyLinkedList()
+template <typename T>
+RebelDoublyLinkedList<T>::RebelDoublyLinkedList()
 {
     this->Head = nullptr;
 }
 
-RebelDoublyLinkedList::RebelDoublyLinkedList(int value)
+template <typename T>
+RebelDoublyLinkedList<T>::RebelDoublyLinkedList(T value)
 {
-    this->Head = new RebelNode(value);
+    this->Head = new RebelNode<T>(value);
 }
 
-int RebelDoublyLinkedList::Lookup(int index)
+template <typename T>
+T RebelDoublyLinkedList<T>::Lookup(int index)
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
     for (int i = 0; i < index; i++)
     {
         CurrentNode = CurrentNode->nextNode;
@@ -21,36 +24,39 @@ int RebelDoublyLinkedList::Lookup(int index)
     return CurrentNode->value;
 }
 
-void RebelDoublyLinkedList::Append(int value)
+template <typename T>
+void RebelDoublyLinkedList<T>::Append(T value)
 {
     if (this->Head != nullptr)
     {
-        RebelNode *CurrentNode = this->Head;
+        RebelNode<T> *CurrentNode = this->Head;
         while (CurrentNode->nextNode != nullptr)
         {
             CurrentNode = CurrentNode->nextNode;
         }
-        CurrentNode->nextNode = new RebelNode(value);
+        CurrentNode->nextNode = new RebelNode<T>(value);
         CurrentNode->nextNode->previousNode = CurrentNode;
     }
     else
     {
-        this->Head = new RebelNode(value);
+        this->Head = new RebelNode<T>(value);
     }
 }
 
-void RebelDoublyLinkedList::Prepend(int value)
+template <typename T>
+void RebelDoublyLinkedList<T>::Prepend(T value)
 {
-    RebelNode *secondNode = this->Head;
-    this->Head = new RebelNode(value);
+    RebelNode<T> *secondNode = this->Head;
+    this->Head = new RebelNode<T>(value);
     this->Head->nextNode = secondNode;
     this->Head->nextNode->previousNode = this->Head;
 }
 
-void RebelDoublyLinkedList::Insert(int value, int index)
+template <typename T>
+void RebelDoublyLinkedList<T>::Insert(T value, int index)
 {
-    RebelNode *NewNode = new RebelNode(value);
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *NewNode = new RebelNode<T>(value);
+    RebelNode<T> *CurrentNode = this->Head;
 
     for (int i = 0; i < index - 1; i++)
     {
@@ -62,9 +68,10 @@ void RebelDoublyLinkedList::Insert(int value, int index)
     CurrentNode->nextNode = NewNode;
 }
 
-void RebelDoublyLinkedList::Delete(int element)
+template <typename T>
+void RebelDoublyLinkedList<T>::Delete(T element)
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
 
     while (true)
     {
@@ -78,9 +85,10 @@ void RebelDoublyLinkedList::Delete(int element)
     }
 }
 
-void RebelDoublyLinkedList::pop(int index)
+template <typename T>
+void RebelDoublyLinkedList<T>::pop(int index)
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
 
     for (int i = 0; i < index - 1; i++)
     {
@@ -91,9 +99,10 @@ void RebelDoublyLinkedList::pop(int index)
     CurrentNode->nextNode->nextNode->previousNode = CurrentNode;
 }
 
-int RebelDoublyLinkedList::count(int element)
+template <typename T>
+int RebelDoublyLinkedList<T>::count(T element)
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
     int i = 0;
 
     while (CurrentNode != nullptr)
@@ -107,9 +116,10 @@ int RebelDoublyLinkedList::count(int element)
     return i;
 }
 
-int RebelDoublyLinkedList::index(int element)
+template <typename T>
+int RebelDoublyLinkedList<T>::index(T element)
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
     int i = 0;
 
     while (true)
@@ -123,9 +133,10 @@ int RebelDoublyLinkedList::index(int element)
     }
 }
 
-void RebelDoublyLinkedList::print()
+template <typename T>
+void RebelDoublyLinkedList<T>::print()
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
 
     std::cout << "[NULL] <-> ";
     while (CurrentNode != nullptr)
@@ -136,9 +147,10 @@ void RebelDoublyLinkedList::print()
     std::cout << "[NULL]" << std::endl;
 }
 
-void RebelDoublyLinkedList::print_reverse()
+template <typename T>
+void RebelDoublyLinkedList<T>::print_reverse()
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
 
     std::cout << "(forward)[NULL] <-> ";
     while (CurrentNode->nextNode != nullptr)
@@ -161,7 +173,7 @@ void RebelDoublyLinkedList::print_reverse()
 
 int main()
 {
-    RebelDoublyLinkedList myList;
+    RebelDoublyLinkedList<int> myList;
     myList.Append(1);
     myList.print();
 

@@ -1,19 +1,22 @@
 #include <iostream>
 #include "RebelSinglyLinkedList.hpp"
 
-RebelSinglyLinkedList::RebelSinglyLinkedList()
+template <typename T>
+RebelSinglyLinkedList<T>::RebelSinglyLinkedList()
 {
     this->Head = nullptr;
 }
 
-RebelSinglyLinkedList::RebelSinglyLinkedList(int value)
+template <typename T>
+RebelSinglyLinkedList<T>::RebelSinglyLinkedList(T value)
 {
-    this->Head = new RebelNode(value);
+    this->Head = new RebelNode<T>(value);
 }
 
-int RebelSinglyLinkedList::Lookup(int index)
+template <typename T>
+T RebelSinglyLinkedList<T>::Lookup(int index)
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
     for (int i = 0; i < index; i++)
     {
         CurrentNode = CurrentNode->nextNode;
@@ -21,35 +24,38 @@ int RebelSinglyLinkedList::Lookup(int index)
     return CurrentNode->value;
 }
 
-void RebelSinglyLinkedList::Append(int value)
+template <typename T>
+void RebelSinglyLinkedList<T>::Append(T value)
 {
     if (this->Head != nullptr)
     {
-        RebelNode *CurrentNode = this->Head;
+        RebelNode<T> *CurrentNode = this->Head;
         while (CurrentNode->nextNode != nullptr)
         {
             CurrentNode = CurrentNode->nextNode;
         }
-        CurrentNode->nextNode = new RebelNode(value);
+        CurrentNode->nextNode = new RebelNode<T>(value);
     }
     else
     {
-        this->Head = new RebelNode(value);
+        this->Head = new RebelNode<T>(value);
     }
 }
 
-void RebelSinglyLinkedList::Prepend(int value)
+template <typename T>
+void RebelSinglyLinkedList<T>::Prepend(T value)
 {
-    RebelNode *secondNode = this->Head;
-    this->Head = new RebelNode(value);
+    RebelNode<T> *secondNode = this->Head;
+    this->Head = new RebelNode<T>(value);
     this->Head->nextNode = secondNode;
 }
 
-void RebelSinglyLinkedList::Insert(int value, int index)
+template <typename T>
+void RebelSinglyLinkedList<T>::Insert(T value, int index)
 {
 
-    RebelNode *NewNode = new RebelNode(value);
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *NewNode = new RebelNode<T>(value);
+    RebelNode<T> *CurrentNode = this->Head;
 
     for (int i = 0; i < index - 1; i++)
     {
@@ -60,10 +66,11 @@ void RebelSinglyLinkedList::Insert(int value, int index)
     CurrentNode->nextNode = NewNode;
 }
 
-void RebelSinglyLinkedList::Delete(int element)
+template <typename T>
+void RebelSinglyLinkedList<T>::Delete(T element)
 {
-    RebelNode *CurrentNode = this->Head;
-    RebelNode *PreviousNode;
+    RebelNode<T> *CurrentNode = this->Head;
+    RebelNode<T> *PreviousNode;
 
     while (true)
     {
@@ -77,9 +84,10 @@ void RebelSinglyLinkedList::Delete(int element)
     }
 }
 
-void RebelSinglyLinkedList::pop(int index)
+template <typename T>
+void RebelSinglyLinkedList<T>::pop(int index)
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
 
     for (int i = 0; i < index - 1; i++)
     {
@@ -89,9 +97,10 @@ void RebelSinglyLinkedList::pop(int index)
     CurrentNode->nextNode = CurrentNode->nextNode->nextNode;
 }
 
-int RebelSinglyLinkedList::count(int element)
+template <typename T>
+int RebelSinglyLinkedList<T>::count(T element)
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
     int i = 0;
 
     while (CurrentNode != nullptr)
@@ -105,9 +114,10 @@ int RebelSinglyLinkedList::count(int element)
     return i;
 }
 
-int RebelSinglyLinkedList::index(int element)
+template <typename T>
+int RebelSinglyLinkedList<T>::index(T element)
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
     int i = 0;
 
     while (true)
@@ -121,9 +131,10 @@ int RebelSinglyLinkedList::index(int element)
     }
 }
 
-void RebelSinglyLinkedList::print()
+template <typename T>
+void RebelSinglyLinkedList<T>::print()
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
 
     while (CurrentNode != nullptr)
     {
@@ -135,12 +146,12 @@ void RebelSinglyLinkedList::print()
 
 int main()
 {
-    RebelSinglyLinkedList myList;
+    RebelSinglyLinkedList<float> myList;
 
-    myList.Append(1);
+    myList.Append(1.4);
     myList.print();
 
-    myList.Append(3);
+    myList.Append(3.1);
     myList.print();
 
     myList.Append(7);
@@ -164,9 +175,6 @@ int main()
     std::cout << myList.Lookup(2) << std::endl;
     std::cout << myList.index(7) << std::endl;
     std::cout << myList.count(69) << std::endl;
-
-    RebelSinglyLinkedList myList2(100);
-    myList2.print();
 
     return 0;
 }

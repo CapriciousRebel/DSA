@@ -1,21 +1,24 @@
 #include <iostream>
 #include "RebelCircularDoublyLinkedList.hpp"
 
-RebelCircularDoublyLinkedList::RebelCircularDoublyLinkedList()
+template <typename T>
+RebelCircularDoublyLinkedList<T>::RebelCircularDoublyLinkedList()
 {
     this->Head = nullptr;
 }
 
-RebelCircularDoublyLinkedList::RebelCircularDoublyLinkedList(int value)
+template <typename T>
+RebelCircularDoublyLinkedList<T>::RebelCircularDoublyLinkedList(T value)
 {
-    this->Head = new RebelNode(value);
+    this->Head = new RebelNode<T>(value);
     this->Head->nextNode = this->Head;
     this->Head->previousNode = this->Head;
 }
 
-int RebelCircularDoublyLinkedList::Lookup(int index)
+template <typename T>
+T RebelCircularDoublyLinkedList<T>::Lookup(int index)
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
     for (int i = 0; i < index; i++)
     {
         CurrentNode = CurrentNode->nextNode;
@@ -23,12 +26,13 @@ int RebelCircularDoublyLinkedList::Lookup(int index)
     return CurrentNode->value;
 }
 
-void RebelCircularDoublyLinkedList::Append(int value)
+template <typename T>
+void RebelCircularDoublyLinkedList<T>::Append(T value)
 {
 
     if (this->Head != nullptr)
     {
-        RebelNode *NewNode = new RebelNode(value);
+        RebelNode<T> *NewNode = new RebelNode<T>(value);
 
         NewNode->nextNode = this->Head->nextNode;
         NewNode->previousNode = this->Head;
@@ -37,17 +41,18 @@ void RebelCircularDoublyLinkedList::Append(int value)
     }
     else
     {
-        this->Head = new RebelNode(value);
+        this->Head = new RebelNode<T>(value);
         this->Head->nextNode = this->Head;
         this->Head->previousNode = this->Head;
     }
 }
 
-void RebelCircularDoublyLinkedList::Prepend(int value)
+template <typename T>
+void RebelCircularDoublyLinkedList<T>::Prepend(T value)
 {
     if (this->Head != nullptr)
     {
-        RebelNode *NewNode = new RebelNode(value);
+        RebelNode<T> *NewNode = new RebelNode<T>(value);
 
         NewNode->nextNode = this->Head;
         NewNode->previousNode = this->Head->previousNode;
@@ -57,17 +62,18 @@ void RebelCircularDoublyLinkedList::Prepend(int value)
     }
     else
     {
-        this->Head = new RebelNode(value);
+        this->Head = new RebelNode<T>(value);
         this->Head->nextNode = this->Head;
         this->Head->previousNode = this->Head;
     }
 }
 
-void RebelCircularDoublyLinkedList::Insert(int value, int index)
+template <typename T>
+void RebelCircularDoublyLinkedList<T>::Insert(T value, int index)
 {
 
-    RebelNode *NewNode = new RebelNode(value);
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *NewNode = new RebelNode<T>(value);
+    RebelNode<T> *CurrentNode = this->Head;
 
     for (int i = 0; i < index - 1; i++)
     {
@@ -81,9 +87,10 @@ void RebelCircularDoublyLinkedList::Insert(int value, int index)
     CurrentNode->nextNode = NewNode;
 }
 
-void RebelCircularDoublyLinkedList::Delete(int element)
+template <typename T>
+void RebelCircularDoublyLinkedList<T>::Delete(T element)
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
 
     while (true)
     {
@@ -97,9 +104,10 @@ void RebelCircularDoublyLinkedList::Delete(int element)
     }
 }
 
-void RebelCircularDoublyLinkedList::pop(int index)
+template <typename T>
+void RebelCircularDoublyLinkedList<T>::pop(int index)
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
     for (int i = 0; i < index - 1; i++)
     {
         CurrentNode = CurrentNode->nextNode;
@@ -108,9 +116,10 @@ void RebelCircularDoublyLinkedList::pop(int index)
     CurrentNode->nextNode->nextNode->previousNode = CurrentNode;
 }
 
-int RebelCircularDoublyLinkedList::count(int element)
+template <typename T>
+int RebelCircularDoublyLinkedList<T>::count(T element)
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
     int i = 0;
 
     while (CurrentNode->nextNode != Head)
@@ -128,9 +137,10 @@ int RebelCircularDoublyLinkedList::count(int element)
     return i;
 }
 
-int RebelCircularDoublyLinkedList::index(int element)
+template <typename T>
+int RebelCircularDoublyLinkedList<T>::index(T element)
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
     int i = 0;
 
     while (true)
@@ -144,9 +154,10 @@ int RebelCircularDoublyLinkedList::index(int element)
     }
 }
 
-void RebelCircularDoublyLinkedList::print()
+template <typename T>
+void RebelCircularDoublyLinkedList<T>::print()
 {
-    RebelNode *CurrentNode = this->Head;
+    RebelNode<T> *CurrentNode = this->Head;
     int count = 0;
 
     while (true)
@@ -154,7 +165,7 @@ void RebelCircularDoublyLinkedList::print()
         count++;
         if (CurrentNode->nextNode == Head)
         {
-            std::cout << "[" << CurrentNode->value << "] -> ";
+            std::cout << "[" << CurrentNode->value << "] <-> ";
             break;
         }
         std::cout << "[" << CurrentNode->value << "] <-> ";
@@ -165,7 +176,7 @@ void RebelCircularDoublyLinkedList::print()
 
 int main()
 {
-    RebelCircularDoublyLinkedList myList;
+    RebelCircularDoublyLinkedList<int> myList;
     myList.Append(1);
     myList.print();
 
