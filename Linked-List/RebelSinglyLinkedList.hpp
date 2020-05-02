@@ -1,32 +1,43 @@
-/// Lookup:  O(1)
+/// Lookup:  O(N)
 /// Append:  O(N)
-/// Prepend: O(N)
+/// Prepend: O(1)
 /// Insert:  O(N)
 /// Delete:  O(N)
-class RebelArray
+class RebelNode
+{
+public:
+    int value;
+    RebelNode *nextNode;
 
+    RebelNode(int value)
+    {
+        this->value = value;
+        nextNode = nullptr;
+    }
+};
+
+class RebelSinglyLinkedList
 {
 private:
-    int *arr;
-    int N;
+    RebelNode *Head;
 
 public:
-    /// Creates an empty Rebel Array
-    RebelArray();
+    /// Creates an Empty Rebel Singly Linked List
+    RebelSinglyLinkedList();
 
-    /// num: number of elements in the Rebelarray
-    RebelArray(int num, ...);
+    /// value: value of the head node
+    RebelSinglyLinkedList(int value);
 
     /// returns the element at the given index
-    /// O(1)
+    /// O(N)
     int Lookup(int index);
 
-    /// insert element at the end of the Rebelarray
+    /// insert element at the end of the RebelSinglyLinkedList
     /// [O(N)]
     void Append(int element);
 
-    /// insert element at the start of the Rebelarray
-    /// [O(N)]
+    /// insert element at the start of the RebelSinglyLinkedList
+    /// [O(1)]
     void Prepend(int element);
 
     /// insert element at the given index
@@ -49,7 +60,7 @@ public:
     /// [O(N)]
     int index(int element);
 
-    /// prints the Rebelarray to the console
+    /// prints the RebelSinglyLinkedList to the console
     /// O(N)
     void print();
 };

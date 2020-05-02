@@ -4,6 +4,8 @@
 
 RebelArray::RebelArray()
 {
+    int *newarr = new int[0];
+    arr = newarr;
     N = 0;
 }
 
@@ -21,21 +23,21 @@ RebelArray::RebelArray(int num, ...)
     N = num;
 }
 
-void RebelArray::append(int element)
+int RebelArray::Lookup(int index)
 {
-
-    int *newarr = new int[N + 1];
-    for (int i = 0; i < N; i++)
-    {
-        newarr[i] = arr[i];
-    }
-
-    newarr[N] = element;
-    arr = newarr;
-    N++;
+    return arr[index];
 }
 
-void RebelArray::insert(int element, int index)
+void RebelArray::Prepend(int element)
+{
+    RebelArray::Insert(element, 0);
+}
+void RebelArray::Append(int element)
+{
+    RebelArray::Insert(element, N);
+}
+
+void RebelArray::Insert(int element, int index)
 {
 
     int *newarr = new int[N + 1];
@@ -69,7 +71,7 @@ void RebelArray::pop(int index)
     N--;
 }
 
-void RebelArray::remove(int element)
+void RebelArray::Delete(int element)
 {
     int *newarr = new int[N - 1];
     static int i;
@@ -118,16 +120,14 @@ int RebelArray::index(int element)
     return -1;
 }
 
-int RebelArray::getElement(int index)
-{
-    return arr[index];
-}
-
 void RebelArray::print()
 {
     std::cout << "[";
-
-    if (N == 1)
+    if (N == 0)
+    {
+        std::cout << " ";
+    }
+    else if (N == 1)
     {
         std::cout << arr[0];
     }
@@ -145,17 +145,19 @@ void RebelArray::print()
 int main()
 {
     RebelArray numbers1;
-    numbers1.append(1);
-    numbers1.append(4);
-    numbers1.append(5);
-    numbers1.append(4);
-    numbers1.insert(10, 2);
+    numbers1.print();
+    numbers1.Append(1);
+    numbers1.Append(4);
+    numbers1.Append(5);
+    numbers1.Append(4);
+    numbers1.Insert(10, 2);
     numbers1.pop(2);
+    numbers1.Prepend(9);
     numbers1.print();
     std::cout << "\n"
               << numbers1.index(4);
     std::cout << "\n"
-              << numbers1.getElement(2) << "\n";
+              << numbers1.Lookup(2) << "\n";
 
     RebelArray numbers2(3, 1, 2, 3);
     numbers2.print();
