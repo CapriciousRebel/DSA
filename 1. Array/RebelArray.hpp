@@ -3,39 +3,39 @@
 /// Prepend: O(N)
 /// Insert:  O(N)
 /// Delete:  O(N)
-class RebelArray
-
+template <typename T>
+class T_RebelArray
 {
 private:
-    int *arr;
+    T *arr;
     int N;
 
 public:
     /// Creates an empty Rebel Array
-    RebelArray();
+    T_RebelArray();
 
     /// num: number of elements in the Rebelarray
-    RebelArray(int num, ...);
+    //T_RebelArray(int num, ...);
 
     /// returns the element at the given index
     /// O(1)
-    int Lookup(int index);
+    T Lookup(int index);
 
     /// insert element at the end of the Rebelarray
     /// [O(N)]
-    void Append(int element);
+    void Append(T element);
 
     /// insert element at the start of the Rebelarray
     /// [O(N)]
-    void Prepend(int element);
+    void Prepend(T element);
 
     /// insert element at the given index
     /// [O(N)]
-    void Insert(int element, int index);
+    void Insert(T element, int index);
 
     /// delete the first occurence of the given element
     /// [O(N)]
-    void Delete(int element);
+    void Delete(T element);
 
     /// delete element at the given index
     /// [O(N)]
@@ -43,11 +43,11 @@ public:
 
     /// returns the number of occurences of the given element
     /// [O(N)]
-    int count(int element);
+    int count(T element);
 
     /// returns the index of the first occurence of the given element
     /// [O(N)]
-    int index(int element);
+    int index(T element);
 
     /// prints the Rebelarray to the console
     /// O(N)

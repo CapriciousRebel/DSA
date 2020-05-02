@@ -2,45 +2,36 @@
 #include <stdarg.h>
 #include "RebelArray.hpp"
 
-RebelArray::RebelArray()
+template <typename T>
+T_RebelArray<T>::T_RebelArray()
 {
-    int *newarr = new int[0];
+    T *newarr = new T[0];
     arr = newarr;
     N = 0;
 }
 
-RebelArray::RebelArray(int num, ...)
-{
-    int *newarr = new int[num];
-    va_list args;
-    va_start(args, num);
-    for (int i = 0; i < num; i++)
-    {
-        int value = va_arg(args, int);
-        newarr[i] = value;
-    }
-    arr = newarr;
-    N = num;
-}
-
-int RebelArray::Lookup(int index)
+template <typename T>
+T T_RebelArray<T>::Lookup(int index)
 {
     return arr[index];
 }
 
-void RebelArray::Prepend(int element)
+template <typename T>
+void T_RebelArray<T>::Prepend(T element)
 {
-    RebelArray::Insert(element, 0);
-}
-void RebelArray::Append(int element)
-{
-    RebelArray::Insert(element, N);
+    T_RebelArray::Insert(element, 0);
 }
 
-void RebelArray::Insert(int element, int index)
+template <typename T>
+void T_RebelArray<T>::Append(T element)
 {
+    T_RebelArray::Insert(element, N);
+}
 
-    int *newarr = new int[N + 1];
+template <typename T>
+void T_RebelArray<T>::Insert(T element, int index)
+{
+    T *newarr = new T[N + 1];
     for (int i = 0; i < index; i++)
     {
         newarr[i] = arr[i];
@@ -54,12 +45,12 @@ void RebelArray::Insert(int element, int index)
     N++;
 }
 
-void RebelArray::pop(int index)
+template <typename T>
+void T_RebelArray<T>::pop(int index)
 {
 
-    int *newarr = new int[N - 1];
-    static int i;
-    for (i = 0; i < index; i++)
+    T *newarr = new T[N - 1];
+    for (int i = 0; i < index; i++)
     {
         newarr[i] = arr[i];
     }
@@ -71,10 +62,11 @@ void RebelArray::pop(int index)
     N--;
 }
 
-void RebelArray::Delete(int element)
+template <typename T>
+void T_RebelArray<T>::Delete(T element)
 {
-    int *newarr = new int[N - 1];
-    static int i;
+    T *newarr = new T[N - 1];
+    int i;
     for (i = 0; i < N; i++)
     {
         if (arr[i] == element)
@@ -94,9 +86,10 @@ void RebelArray::Delete(int element)
     N--;
 }
 
-int RebelArray::count(int element)
+template <typename T>
+int T_RebelArray<T>::count(T element)
 {
-    static int element_count = 0;
+    int element_count = 0;
     for (int i = 0; i < N; i++)
     {
         if (arr[i] == element)
@@ -107,9 +100,10 @@ int RebelArray::count(int element)
     return element_count;
 }
 
-int RebelArray::index(int element)
+template <typename T>
+int T_RebelArray<T>::index(T element)
 {
-    int *newarr = new int[N - 1];
+    T *newarr = new T[N - 1];
     for (int i = 0; i < N; i++)
     {
         if (arr[i] == element)
@@ -120,7 +114,8 @@ int RebelArray::index(int element)
     return -1;
 }
 
-void RebelArray::print()
+template <typename T>
+void T_RebelArray<T>::print()
 {
     std::cout << "[";
     if (N == 0)
@@ -144,11 +139,11 @@ void RebelArray::print()
 
 int main()
 {
-    RebelArray numbers1;
+    T_RebelArray<float> numbers1;
     numbers1.print();
-    numbers1.Append(1);
-    numbers1.Append(4);
-    numbers1.Append(5);
+    numbers1.Append(1.2);
+    numbers1.Append(4.8);
+    numbers1.Append(5.1);
     numbers1.Append(4);
     numbers1.Insert(10, 2);
     numbers1.pop(2);
@@ -158,9 +153,6 @@ int main()
               << numbers1.index(4);
     std::cout << "\n"
               << numbers1.Lookup(2) << "\n";
-
-    RebelArray numbers2(3, 1, 2, 3);
-    numbers2.print();
 
     return 0;
 }
