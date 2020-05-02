@@ -3,12 +3,12 @@
 
 RebelDoublyLinkedList::RebelDoublyLinkedList()
 {
-    Head = nullptr;
+    this->Head = nullptr;
 }
 
 RebelDoublyLinkedList::RebelDoublyLinkedList(int value)
 {
-    Head = new RebelNode(value);
+    this->Head = new RebelNode(value);
 }
 
 int RebelDoublyLinkedList::Lookup(int index)

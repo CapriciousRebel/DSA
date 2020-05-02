@@ -1,17 +1,18 @@
 #include <iostream>
-#include "RebelSinglyLinkedList.hpp"
+#include "RebelCircularSinglyLinkedList.hpp"
 
-RebelSinglyLinkedList::RebelSinglyLinkedList()
+RebelCircularSinglyLinkedList::RebelCircularSinglyLinkedList()
 {
     this->Head = nullptr;
 }
 
-RebelSinglyLinkedList::RebelSinglyLinkedList(int value)
+RebelCircularSinglyLinkedList::RebelCircularSinglyLinkedList(int value)
 {
     this->Head = new RebelNode(value);
+    this->Head->nextNode = this->Head;
 }
 
-int RebelSinglyLinkedList::Lookup(int index)
+int RebelCircularSinglyLinkedList::Lookup(int index)
 {
     RebelNode *CurrentNode = this->Head;
     for (int i = 0; i < index; i++)
@@ -21,31 +22,44 @@ int RebelSinglyLinkedList::Lookup(int index)
     return CurrentNode->value;
 }
 
-void RebelSinglyLinkedList::Append(int value)
+void RebelCircularSinglyLinkedList::Append(int value)
 {
+
     if (this->Head != nullptr)
     {
-        RebelNode *CurrentNode = this->Head;
-        while (CurrentNode->nextNode != nullptr)
-        {
-            CurrentNode = CurrentNode->nextNode;
-        }
-        CurrentNode->nextNode = new RebelNode(value);
+        RebelNode *NewNode = new RebelNode(value);
+        NewNode->nextNode = this->Head->nextNode;
+        this->Head->nextNode = NewNode;
     }
     else
     {
         this->Head = new RebelNode(value);
+        this->Head->nextNode = this->Head;
     }
 }
 
-void RebelSinglyLinkedList::Prepend(int value)
+void RebelCircularSinglyLinkedList::Prepend(int value)
 {
-    RebelNode *secondNode = this->Head;
-    this->Head = new RebelNode(value);
-    this->Head->nextNode = secondNode;
+    if (this->Head != nullptr)
+    {
+        RebelNode *CurrentNode = this->Head;
+        while (CurrentNode->nextNode != Head)
+        {
+            CurrentNode = CurrentNode->nextNode;
+        }
+        RebelNode *NewNode = new RebelNode(value);
+        CurrentNode->nextNode = NewNode;
+        NewNode->nextNode = Head;
+        this->Head = NewNode;
+    }
+    else
+    {
+        this->Head = new RebelNode(value);
+        this->Head->nextNode = this->Head;
+    }
 }
 
-void RebelSinglyLinkedList::Insert(int value, int index)
+void RebelCircularSinglyLinkedList::Insert(int value, int index)
 {
 
     RebelNode *NewNode = new RebelNode(value);
@@ -60,7 +74,7 @@ void RebelSinglyLinkedList::Insert(int value, int index)
     CurrentNode->nextNode = NewNode;
 }
 
-void RebelSinglyLinkedList::Delete(int element)
+void RebelCircularSinglyLinkedList::Delete(int element)
 {
     RebelNode *CurrentNode = this->Head;
     RebelNode *PreviousNode;
@@ -77,7 +91,7 @@ void RebelSinglyLinkedList::Delete(int element)
     }
 }
 
-void RebelSinglyLinkedList::pop(int index)
+void RebelCircularSinglyLinkedList::pop(int index)
 {
     RebelNode *CurrentNode = this->Head;
 
@@ -89,12 +103,12 @@ void RebelSinglyLinkedList::pop(int index)
     CurrentNode->nextNode = CurrentNode->nextNode->nextNode;
 }
 
-int RebelSinglyLinkedList::count(int element)
+int RebelCircularSinglyLinkedList::count(int element)
 {
     RebelNode *CurrentNode = this->Head;
     int i = 0;
 
-    while (CurrentNode != nullptr)
+    while (CurrentNode->nextNode != Head)
     {
         if (CurrentNode->value == element)
         {
@@ -102,10 +116,15 @@ int RebelSinglyLinkedList::count(int element)
         }
         CurrentNode = CurrentNode->nextNode;
     }
+    if (CurrentNode->value == element)
+    {
+        i++;
+    }
+
     return i;
 }
 
-int RebelSinglyLinkedList::index(int element)
+int RebelCircularSinglyLinkedList::index(int element)
 {
     RebelNode *CurrentNode = this->Head;
     int i = 0;
@@ -121,22 +140,28 @@ int RebelSinglyLinkedList::index(int element)
     }
 }
 
-void RebelSinglyLinkedList::print()
+void RebelCircularSinglyLinkedList::print()
 {
     RebelNode *CurrentNode = this->Head;
+    int count = 0;
 
-    while (CurrentNode != nullptr)
+    while (true)
     {
+        count++;
+        if (CurrentNode->nextNode == Head)
+        {
+            std::cout << "[" << CurrentNode->value << "] -> ";
+            break;
+        }
         std::cout << "[" << CurrentNode->value << "] -> ";
         CurrentNode = CurrentNode->nextNode;
     }
-    std::cout << "[NULL]" << std::endl;
+    std::cout << "[HEAD]" << std::endl;
 }
 
 int main()
 {
-    RebelSinglyLinkedList myList;
-
+    RebelCircularSinglyLinkedList myList;
     myList.Append(1);
     myList.print();
 
@@ -152,21 +177,8 @@ int main()
     myList.Insert(69, 2);
     myList.print();
 
-    myList.Delete(1);
-    myList.print();
-
     myList.Insert(69, 4);
     myList.print();
-
-    myList.pop(2);
-    myList.print();
-
-    std::cout << myList.Lookup(2) << std::endl;
-    std::cout << myList.index(7) << std::endl;
-    std::cout << myList.count(69) << std::endl;
-
-    RebelSinglyLinkedList myList2(100);
-    myList2.print();
 
     return 0;
 }
