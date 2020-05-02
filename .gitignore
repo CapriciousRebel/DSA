@@ -2,3 +2,5 @@
 assignment/*
 *.out
 .DS_Store
+STL/*
+.vscode

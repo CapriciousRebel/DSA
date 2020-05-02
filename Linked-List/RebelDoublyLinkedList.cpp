@@ -1,17 +1,17 @@
 #include <iostream>
-#include "RebelSinglyLinkedList.hpp"
+#include "RebelDoublyLinkedList.hpp"
 
-RebelSinglyLinkedList::RebelSinglyLinkedList()
+RebelDoublyLinkedList::RebelDoublyLinkedList()
 {
     Head = nullptr;
 }
 
-RebelSinglyLinkedList::RebelSinglyLinkedList(int value)
+RebelDoublyLinkedList::RebelDoublyLinkedList(int value)
 {
     Head = new RebelNode(value);
 }
 
-int RebelSinglyLinkedList::Lookup(int index)
+int RebelDoublyLinkedList::Lookup(int index)
 {
     RebelNode *CurrentNode = this->Head;
     for (int i = 0; i < index; i++)
@@ -21,7 +21,7 @@ int RebelSinglyLinkedList::Lookup(int index)
     return CurrentNode->value;
 }
 
-void RebelSinglyLinkedList::Append(int value)
+void RebelDoublyLinkedList::Append(int value)
 {
     if (this->Head != nullptr)
     {
@@ -31,6 +31,7 @@ void RebelSinglyLinkedList::Append(int value)
             CurrentNode = CurrentNode->nextNode;
         }
         CurrentNode->nextNode = new RebelNode(value);
+        CurrentNode->nextNode->previousNode = CurrentNode;
     }
     else
     {
@@ -38,16 +39,16 @@ void RebelSinglyLinkedList::Append(int value)
     }
 }
 
-void RebelSinglyLinkedList::Prepend(int value)
+void RebelDoublyLinkedList::Prepend(int value)
 {
     RebelNode *secondNode = this->Head;
     this->Head = new RebelNode(value);
     this->Head->nextNode = secondNode;
+    this->Head->nextNode->previousNode = this->Head;
 }
 
-void RebelSinglyLinkedList::Insert(int value, int index)
+void RebelDoublyLinkedList::Insert(int value, int index)
 {
-
     RebelNode *NewNode = new RebelNode(value);
     RebelNode *CurrentNode = this->Head;
 
@@ -55,29 +56,29 @@ void RebelSinglyLinkedList::Insert(int value, int index)
     {
         CurrentNode = CurrentNode->nextNode;
     }
-
+    CurrentNode->nextNode->previousNode = NewNode;
     NewNode->nextNode = CurrentNode->nextNode;
+    NewNode->previousNode = CurrentNode;
     CurrentNode->nextNode = NewNode;
 }
 
-void RebelSinglyLinkedList::Delete(int element)
+void RebelDoublyLinkedList::Delete(int element)
 {
     RebelNode *CurrentNode = this->Head;
-    RebelNode *PreviousNode;
 
     while (true)
     {
         if (CurrentNode->value == element)
         {
-            PreviousNode->nextNode = CurrentNode->nextNode;
+            CurrentNode->previousNode->nextNode = CurrentNode->nextNode;
+            CurrentNode->nextNode->previousNode = CurrentNode->previousNode;
             break;
         }
-        PreviousNode = CurrentNode;
         CurrentNode = CurrentNode->nextNode;
     }
 }
 
-void RebelSinglyLinkedList::pop(int index)
+void RebelDoublyLinkedList::pop(int index)
 {
     RebelNode *CurrentNode = this->Head;
 
@@ -87,14 +88,15 @@ void RebelSinglyLinkedList::pop(int index)
     }
 
     CurrentNode->nextNode = CurrentNode->nextNode->nextNode;
+    CurrentNode->nextNode->nextNode->previousNode = CurrentNode;
 }
 
-int RebelSinglyLinkedList::count(int element)
+int RebelDoublyLinkedList::count(int element)
 {
     RebelNode *CurrentNode = this->Head;
     int i = 0;
 
-    while (CurrentNode!= nullptr)
+    while (CurrentNode != nullptr)
     {
         if (CurrentNode->value == element)
         {
@@ -105,7 +107,7 @@ int RebelSinglyLinkedList::count(int element)
     return i;
 }
 
-int RebelSinglyLinkedList::index(int element)
+int RebelDoublyLinkedList::index(int element)
 {
     RebelNode *CurrentNode = this->Head;
     int i = 0;
@@ -121,41 +123,92 @@ int RebelSinglyLinkedList::index(int element)
     }
 }
 
-void RebelSinglyLinkedList::print()
+void RebelDoublyLinkedList::print()
 {
     RebelNode *CurrentNode = this->Head;
 
+    std::cout << "[NULL] <-> ";
     while (CurrentNode != nullptr)
     {
-        std::cout << "[" << CurrentNode->value << "] -> ";
+        std::cout << "[" << CurrentNode->value << "] <-> ";
         CurrentNode = CurrentNode->nextNode;
+    }
+    std::cout << "[NULL]" << std::endl;
+}
+
+void RebelDoublyLinkedList::print_reverse()
+{
+    RebelNode *CurrentNode = this->Head;
+
+    std::cout << "(forward)[NULL] <-> ";
+    while (CurrentNode->nextNode != nullptr)
+    {
+        std::cout << "[" << CurrentNode->value << "] <-> ";
+        CurrentNode = CurrentNode->nextNode;
+    }
+    std::cout << "[" << CurrentNode->value << "] <-> ";
+
+    //CurrentNode = CurrentNode->previousNode->previousNode;
+    std::cout << "[NULL]\n(reverse) [NULL] <-> ";
+
+    while (CurrentNode != nullptr)
+    {
+        std::cout << "[" << CurrentNode->value << "] <-> ";
+        CurrentNode = CurrentNode->previousNode;
     }
     std::cout << "[NULL]" << std::endl;
 }
 
 int main()
 {
-    RebelSinglyLinkedList myList;
+    RebelDoublyLinkedList myList;
     myList.Append(1);
+    myList.print();
+
     myList.Append(3);
+    myList.print();
+
     myList.Append(7);
     myList.print();
+
     myList.Prepend(99);
     myList.print();
+
     myList.Insert(69, 2);
     myList.print();
-    myList.Delete(1);
+
     myList.Insert(69, 4);
     myList.print();
-    myList.pop(2);
-    myList.print();
-    std::cout << myList.Lookup(2) << std::endl;
-    std::cout << myList.index(7) << std::endl;
-    myList.print();
-    std::cout << myList.count(69) << std::endl;
 
-    RebelSinglyLinkedList myList2(100);
-    myList2.print();
+    myList.Delete(69);
+    myList.print();
+
+    myList.Insert(69, 2);
+    myList.print();
+
+    myList.Insert(62, 2);
+    myList.print();
+
+    myList.Insert(23, 4);
+    myList.print();
+
+    myList.Insert(23, 4);
+    myList.print();
+
+    myList.Insert(23, 4);
+    myList.print();
+
+    myList.Insert(23, 4);
+    myList.print();
+
+    myList.pop(1);
+    myList.print();
+
+    std::cout << myList.count(23) << std::endl;
+
+    std::cout << "\n";
+    myList.print();
+    myList.print_reverse();
 
     return 0;
 }
