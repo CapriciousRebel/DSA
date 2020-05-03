@@ -163,7 +163,7 @@ int main()
     myList.Insert(69, 2);
     myList.print();
 
-    myList.Delete(1);
+    myList.Delete(1.4);
     myList.print();
 
     myList.Insert(69, 4);

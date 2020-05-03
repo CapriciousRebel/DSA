@@ -11,7 +11,6 @@ template <typename T>
 RebelStack<T>::RebelStack(T value)
 {
     this->TopPlate = new RebelPlate<T>(value);
-    this->TopPlate->nextPlate = nullptr;
 }
 
 template <typename T>
@@ -26,7 +25,6 @@ void RebelStack<T>::push(T value)
     else
     {
         this->TopPlate = new RebelPlate<T>(value);
-        this->TopPlate->nextPlate = nullptr;
     }
 }
 

@@ -1,5 +1,6 @@
 /// Push: O(1)
 /// Pop: O(1)
+/// [Bottom] -> [element1] -> [element2 ] -> [element3] 
 
 template <typename T>
 class RebelPlate

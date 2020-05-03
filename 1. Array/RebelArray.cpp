@@ -13,6 +13,14 @@ RebelArray<T>::RebelArray()
 template <typename T>
 T RebelArray<T>::Lookup(int index)
 {
+    if (index > N - 1)
+    {
+        throw "Index Out of Bounds!";
+    }
+    if (index < 0)
+    {
+        return arr[N - index - 2];
+    }
     return arr[index];
 }
 
@@ -140,19 +148,22 @@ void RebelArray<T>::print()
 int main()
 {
     RebelArray<float> numbers1;
-    numbers1.print();
     numbers1.Append(1.2);
+    numbers1.print();
     numbers1.Append(4.8);
+    numbers1.print();
     numbers1.Append(5.1);
+    numbers1.print();
     numbers1.Append(4);
+    numbers1.print();
     numbers1.Insert(10, 2);
+    numbers1.print();
     numbers1.pop(2);
     numbers1.Prepend(9);
     numbers1.print();
+    std::cout << numbers1.index(5.1);
     std::cout << "\n"
-              << numbers1.index(4);
-    std::cout << "\n"
-              << numbers1.Lookup(2) << "\n";
+              << numbers1.Lookup(-1) << "\n";
 
     return 0;
 }

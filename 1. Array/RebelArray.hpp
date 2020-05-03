@@ -3,6 +3,7 @@
 /// Prepend: O(N)
 /// Insert:  O(N)
 /// Delete:  O(N)
+/// [element1, element2, element3, ...]
 
 template <typename T>
 class RebelArray

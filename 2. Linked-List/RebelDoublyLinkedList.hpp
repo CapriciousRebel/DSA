@@ -3,6 +3,8 @@
 /// Prepend: O(1)
 /// Insert:  O(N)
 /// Delete:  O(N)
+/// [NULL] <-> [element1] <-> [element2] <-> [element3] <-> [NULL]
+
 template <typename T>
 class RebelNode
 {
