@@ -35,8 +35,8 @@ public:
     /// EnQueue a value onto the Back of the RebelQueue
     void EnQueue(T value);
 
-    /// DeQueue the value from the Front of the RebelQueue
-    void DeQueue();
+    /// DeQueue the value from the Front of the RebelQueue and return it
+    RebelElement<T> *DeQueue();
 
     /// Print's the current RebelQueue
     void print();

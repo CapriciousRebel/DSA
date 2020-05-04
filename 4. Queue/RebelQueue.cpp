@@ -37,11 +37,12 @@ void RebelQueue<T>::EnQueue(T value)
 }
 
 template <typename T>
-void RebelQueue<T>::DeQueue()
+RebelElement<T> *RebelQueue<T>::DeQueue()
 {
-    //std::cout << "{" << this->FrontPlate->previousPlate->value << "}";
+    RebelElement<T> *Temp = this->FrontPlate;
     this->FrontPlate = this->FrontPlate->previousPlate;
     this->FrontPlate->nextPlate = nullptr;
+    return Temp;
 }
 
 template <typename T>
@@ -57,29 +58,34 @@ void RebelQueue<T>::print()
     std::cout << "[Front] ->" << std::endl;
 }
 
-int main()
+int main1()
 {
-    RebelQueue<int> myStack;
-    myStack.EnQueue(34);
-    myStack.print();
+    RebelQueue<int> myQueue;
+    myQueue.EnQueue(34);
+    myQueue.print();
 
-    myStack.EnQueue(35);
-    myStack.print();
+    myQueue.EnQueue(35);
+    myQueue.print();
 
-    myStack.EnQueue(36);
-    myStack.print();
+    myQueue.EnQueue(36);
+    myQueue.print();
 
-    myStack.EnQueue(312);
-    myStack.print();
+    myQueue.EnQueue(312);
+    myQueue.print();
 
-    myStack.EnQueue(363);
-    myStack.print();
+    myQueue.EnQueue(363);
+    myQueue.print();
 
-    myStack.DeQueue();
-    myStack.print();
+    RebelElement<int> *dequed;
 
-    myStack.DeQueue();
-    myStack.print();
+    dequed = myQueue.DeQueue();
+    myQueue.print();
+
+    myQueue.DeQueue();
+    myQueue.print();
+
+    std::cout << "\n\n"
+              << dequed->value;
 
     return 0;
 }

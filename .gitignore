@@ -4,3 +4,5 @@ assignment/*
 .DS_Store
 STL/*
 .vscode
+
+UnionFind/*
