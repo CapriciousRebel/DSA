@@ -1,3 +1,5 @@
+#define RebelPrint(x, y) std::cout << x << "  " << y << std::endl;
+
 #include <iostream>
 #include "RebelSinglyLinkedList.hpp"
 
@@ -132,6 +134,33 @@ int RebelSinglyLinkedList<T>::index(T element)
 }
 
 template <typename T>
+void RebelSinglyLinkedList<T>::reverse()
+{
+    if (this->Head != nullptr) // handle empty linked list edge case (do nothing if empty)
+    {
+        RebelNode<T> *CurrentNode, *NextNode, *PreviousNode;
+
+        CurrentNode = this->Head;
+        NextNode = CurrentNode->nextNode;
+        PreviousNode = nullptr;
+
+        while (CurrentNode != nullptr)
+        {
+            // Save the next node
+            NextNode = CurrentNode->nextNode;
+            // link the next node of current node to the previous node (reverse the node)
+            CurrentNode->nextNode = PreviousNode;
+            // now the current node is the previous node for the next node
+            PreviousNode = CurrentNode;
+            // Update the currentnode to the next node in the linkedlist that we saved earlier
+            CurrentNode = NextNode;
+        }
+        // assign head to the last node
+        this->Head = PreviousNode;
+    }
+}
+
+template <typename T>
 void RebelSinglyLinkedList<T>::print()
 {
     RebelNode<T> *CurrentNode = this->Head;
@@ -147,7 +176,9 @@ void RebelSinglyLinkedList<T>::print()
 int main()
 {
     RebelSinglyLinkedList<float> myList;
-
+    RebelPrint("Create a linked list!", "");
+    myList.print();
+    RebelPrint("Test Append!", "");
     myList.Append(1.4);
     myList.print();
 
@@ -157,19 +188,33 @@ int main()
     myList.Append(7);
     myList.print();
 
+    myList.Append(100);
+    myList.print();
+
+    myList.Append(120);
+    myList.print();
+
+    RebelPrint("Test Prepend!", "");
     myList.Prepend(99);
     myList.print();
 
+    RebelPrint("Test Insert!", "");
     myList.Insert(69, 2);
     myList.print();
 
+    RebelPrint("Test Delete!", "");
     myList.Delete(1.4);
     myList.print();
 
     myList.Insert(69, 4);
     myList.print();
 
+    RebelPrint("Test pop!", "");
     myList.pop(2);
+    myList.print();
+
+    RebelPrint("Test Reverse a linked list!", "");
+    myList.reverse();
     myList.print();
 
     std::cout << myList.Lookup(2) << std::endl;

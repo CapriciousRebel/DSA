@@ -3,6 +3,7 @@
 /// Prepend: O(1)
 /// Insert:  O(N)
 /// Delete:  O(N)
+/// Reverse: O(N)
 /// [element1] -> [element2] -> [element3] -> [NULL]
 
 template <typename T>
@@ -63,6 +64,10 @@ public:
     /// returns the index of the first occurence of the given element
     /// [O(N)]
     int index(T element);
+
+    /// reverses the linked list
+    /// O(N)
+    void reverse();
 
     /// prints the RebelSinglyLinkedList to the console
     /// O(N)
